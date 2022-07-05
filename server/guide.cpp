@@ -1,26 +1,24 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "guide.h"
+#include "ui_guide.h"
 #include "beach.h"
 #include "user.h"
 #include "lodge.h"
 #include "guide.h"
 
-MainWindow::MainWindow(Database db, QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+guide::guide(Database db, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::guide)
 {
     this->db = db;
     ui->setupUi(this);
 }
 
-MainWindow::~MainWindow()
+guide::~guide()
 {
     delete ui;
 }
 
-
-
-void MainWindow::on_beach_btn_clicked()
+void guide::on_beach_btn_clicked()
 {
     this->close();
     beach beach(db);
@@ -29,7 +27,7 @@ void MainWindow::on_beach_btn_clicked()
     this->show();
 }
 
-void MainWindow::on_lodge_btn_clicked()
+void guide::on_lodge_btn_clicked()
 {
     this->close();
     lodge lodge(db);
@@ -38,7 +36,7 @@ void MainWindow::on_lodge_btn_clicked()
     this->show();
 }
 
-void MainWindow::on_guide_btn_clicked()
+void guide::on_guide_btn_clicked()
 {
     this->close();
     guide guide(db);
@@ -47,7 +45,7 @@ void MainWindow::on_guide_btn_clicked()
     this->show();
 }
 
-void MainWindow::on_user_btn_clicked()
+void guide::on_user_btn_clicked()
 {
     this->close();
     user user(db);
@@ -55,4 +53,3 @@ void MainWindow::on_user_btn_clicked()
     user.exec();
     this->show();
 }
-
