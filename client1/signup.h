@@ -30,6 +30,7 @@ private:
     Ui::signup *ui;
     Database db;
     bool check;
+    QSqlQuery sql_query;
     char query[1024];
 };
 

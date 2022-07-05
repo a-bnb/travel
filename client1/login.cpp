@@ -32,25 +32,23 @@ void login::on_login_btn_clicked()
     {
 
         sprintf(query, "SELECT userpw, username FROM user where userid='%s'", id.toLocal8Bit().data());
-        if(mysql_query(&db.conn, query)!=0)
+        sql_query.exec(QString::fromLocal8Bit(query));
+        if(sql_query.size() == 0)
         {
-            QMessageBox::information(this, "login_failed", "공백");
+            QMessageBox::warning(this, "login failed", "");
 
         }
         else
         {
-            db.sql_result = mysql_store_result(&db.conn);
-            db.sql_row = mysql_fetch_row(db.sql_result);
-            cout<<"password: "<<db.sql_row[0]<<endl;
-            if(strcmp(pw.toLocal8Bit().data(), db.sql_row[0])==0)
+            sql_query.next();
+            if(sql_query.value(0) != pw)
             {
-                puts("login_sucess");
+                QMessageBox::warning(this, "error", "PW error");
             }
             else
             {
-                QMessageBox::information(this, "login_failed", "공백");
+                QMessageBox::information(this, "환 영", "로그인 성공");
             }
-            mysql_free_result(db.sql_result);
         }
 
     }

@@ -1,33 +1,38 @@
-#ifndef __DATABASE_H_
-#define __DATABASE_H_
-#include "/usr/include/mysql/mysql.h"
+#ifndef DATABASE_H
+#define DATABASE_H
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QDebug>
+#include <QtSql>
+#include <QDebug>
+#include <QSqlTableModel>
 #include <iostream>
-#include <cstring>
+
 
 class Database
 {
+private:
+    QSqlDatabase db;
 public:
-    MYSQL *connection = NULL, conn;
-    MYSQL_RES *sql_result;
-    MYSQL_ROW sql_row;
-
-
-public:
+    std::string query_string;
+    QSqlQuery query;
     void database_init()
     {
-        mysql_init(&conn);
-        mysql_options(&conn, MYSQL_SET_CHARSET_NAME, "utf8");
-        connection = mysql_real_connect(&conn, "localhost", "root", "1234", "Indian", 3306, NULL, 0);
-        if(connection==NULL)
+        db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName("10.10.20.44");      // IP 또는 DNS Host name
+        db.setDatabaseName("travel"); // DB명
+        db.setUserName("admin");     // 계정 명
+        db.setPassword("1234");     // 계정 Password
+
+        if(!db.open())
         {
-            fprintf(stderr, "Failed to connect to databases: Error: %s\n",
-            mysql_error(&conn));
-            return;
+            qDebug()<<"실패";
+            std::cout<<db.lastError().text().toStdString()<<std::endl;
+            exit(1);
         }
-        else
-        {
-            puts("Database connect!");
-        }
+        std::cout<<"Database Connected!"<<std::endl;
     }
+
 };
-#endif
+
+#endif // DATABASE_H

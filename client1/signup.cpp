@@ -26,7 +26,8 @@ void signup::on_check_btn_clicked()
         return;
     }
     sprintf(query, "SELECT * FROM user WHERE userid = '%s'", id.toLocal8Bit().data());
-    if(mysql_query(&db.conn,query)!=0)
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.size() == 0)
     {
         check = true;
         QMessageBox::information(this, "OK", "통과");
@@ -39,6 +40,7 @@ void signup::on_check_btn_clicked()
 
 void signup::on_signup_btn_clicked()
 {
+    char type[100] = "normal";
     if(!check)
     {
         QMessageBox::information(this, "error", "중복확인");
@@ -55,19 +57,16 @@ void signup::on_signup_btn_clicked()
             QMessageBox::information(this, "error", "비밀번호 불일치");
         else
         {
-            db.sql_result = mysql_store_result(&db.conn);
-            sprintf(query, "INSERT INTO user(userid, userpw, username) VALUES('%s','%s','%s')",
-                    id.toLocal8Bit().data(), pw.toLocal8Bit().data(), name.toLocal8Bit().data());
-            if(mysql_query(&db.conn,query)!=0)
+            sprintf(query, "INSERT INTO user(userid, userpw, username, usertype) VALUES('%s','%s','%s','%s')",
+                    id.toLocal8Bit().data(), pw.toLocal8Bit().data(), name.toLocal8Bit().data(), type);
+            sql_query.exec(QString::fromLocal8Bit(query));
+            if(sql_query.size() == 0)
             {
                 QMessageBox::information(this, "error", "데이터베이스 접근 오류");
-                fprintf(stderr, "Failed to connect to databases: Error: %s\n",
-                mysql_error(&db.conn));
             }
             else
             {
                 QMessageBox::information(this, "축", "축) 가입");
-                mysql_free_result(db.sql_result);
                 this->close();
             }
 

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <iostream>
+#include <string>
 
 #include "database.h"
 
@@ -29,6 +30,7 @@ private slots:
 private:
     Ui::login *ui;
     Database db;
+    QSqlQuery sql_query;
     char query[1024];
 };
 #endif // LOGIN_H
