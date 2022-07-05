@@ -22,7 +22,7 @@ void login::on_login_btn_clicked()
 {
     QString id = ui->ID_text->text();
     QString pw = ui->PW_text->text();
-    QString type = "normal";
+    QString type = "vip";
 
     if(id == "" || pw == "")
     {
@@ -53,7 +53,6 @@ void login::on_login_btn_clicked()
 
     }
 }
-
 
 void login::on_signup_btn_clicked()
 {
