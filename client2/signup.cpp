@@ -40,7 +40,7 @@ void signup::on_check_btn_clicked()
 
 void signup::on_signup_btn_clicked()
 {
-    char type[100] = "normal";
+    char type[100] = "vip";
     if(!check)
     {
         QMessageBox::information(this, "error", "중복확인");

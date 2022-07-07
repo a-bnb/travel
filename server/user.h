@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QString>
 #include <QTableWidget>
+#include <QList>
+#include <QSqlError>
 #include "database.h"
 
 namespace Ui {
@@ -30,9 +32,20 @@ private slots:
 
     void on_refresh_btn_clicked();
 
+    void on_add_btn_clicked();
+
+    void on_remove_btn_clicked();
+
+    void on_del_log_btn_clicked();
+
+    void on_usertable_itemClicked();
+
+    void on_edit_btn_clicked();
+
 private:
     Ui::user *ui;
     Database db;
+    bool check;
     QSqlQuery sql_query;
     char query[1024];
 

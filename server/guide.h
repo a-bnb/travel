@@ -28,9 +28,18 @@ private slots:
 
     void on_lodge_btn_clicked();
 
+    void on_refresh_btn_clicked();
+
+    void on_add_btn_clicked();
+
+    void on_remove_btn_clicked();
+
+    void on_guidetable_itemClicked();
+
 private:
     Ui::guide *ui;
     Database db;
+    bool check;
     QSqlQuery sql_query;
     char query[1024];
 };

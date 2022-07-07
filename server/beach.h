@@ -29,11 +29,20 @@ private slots:
 
     void on_lodge_btn_clicked();
 
+    void on_add_btn_clicked();
+
+    void on_refresh_btn_clicked();
+
+    void on_remove_btn_clicked();
+
+    void on_beachtable_itemClicked();
+
 private:
     Ui::beach *ui;
     Database db;
     QSqlQuery sql_query;
     char query[1024];
+    bool check;
 };
 
 #endif // BEACH_H

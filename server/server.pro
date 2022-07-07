@@ -17,23 +17,35 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     beach.cpp \
+    beach_add.cpp \
     guide.cpp \
+    guide_add.cpp \
     lodge.cpp \
+    lodge_add.cpp \
     main.cpp \
-    user.cpp
+    user.cpp \
+    user_add.cpp
 
 HEADERS += \
     beach.h \
+    beach_add.h \
     database.h \
     guide.h \
+    guide_add.h \
     lodge.h \
-    user.h
+    lodge_add.h \
+    user.h \
+    user_add.h
 
 FORMS += \
     beach.ui \
+    beach_add.ui \
     guide.ui \
+    guide_add.ui \
     lodge.ui \
-    user.ui
+    lodge_add.ui \
+    user.ui \
+    user_add.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
