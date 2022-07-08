@@ -7,11 +7,43 @@ lodge_add::lodge_add(Database dbs, QWidget *parent) :
     db(dbs)
 {
     ui->setupUi(this);
+    l_name = "";
 }
+
+lodge_add::lodge_add(QString l_name, Database dbs, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::lodge_add),
+    db(dbs),
+    l_name(l_name)
+{
+    ui->setupUi(this);
+    edit_set();
+}
+
 
 lodge_add::~lodge_add()
 {
     delete ui;
+}
+
+void lodge_add::edit_set()
+{
+    ui->name_text->setText(l_name);
+    sprintf(query, "SELECT * FROM hotel WHERE hotel_name = '%s'", l_name.toLocal8Bit().data());
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.size() != 0)
+    {
+        sql_query.next();
+        ui->sortation_text->setText(sql_query.value(1).toString());
+        ui->add_text->setText(sql_query.value(2).toString());
+        ui->report_text->setText(sql_query.value(3).toString());
+        ui->room_text->setText(sql_query.value(4).toString());
+        ui->num_text->setText(sql_query.value(5).toString());
+    }
+    else
+    {
+        this->close();
+    }
 }
 
 void lodge_add::on_check_btn_clicked()
@@ -37,26 +69,47 @@ void lodge_add::on_check_btn_clicked()
 
 void lodge_add::on_signup_btn_clicked()
 {
+
+    QList<QString> lodge_list;
+    lodge_list.append(ui->name_text->text());
+    lodge_list.append(ui->sortation_text->text());
+    lodge_list.append(ui->add_text->text());
+    lodge_list.append(ui->report_text->text());
+    lodge_list.append(ui->room_text->text());
+    lodge_list.append(ui->num_text->text());
+
+    if(l_name == lodge_list.value(0))
+        check=true;
     if(!check)
     {
         QMessageBox::information(this, "error", "중복확인");
         return;
     }
-    QList<QString> beach_list;
-    beach_list.append(ui->name_text->text());
-    beach_list.append(ui->sortation_text->text());
-    beach_list.append(ui->num_text->text());
-    beach_list.append(ui->add_text->text());
 
-    if(beach_list.value(0) != "")
+    if(lodge_list.value(0) != "")
     {
-        sprintf(query, "INSERT INTO hotel(hotel_name, hotel_sortation, hotel_number, hotel_address) VALUES('%s','%s','%s','%s')",
-                beach_list.value(0).toLocal8Bit().data(),beach_list.value(1).toLocal8Bit().data(),
-                beach_list.value(2).toLocal8Bit().data(),beach_list.value(3).toLocal8Bit().data());
+        if(l_name=="")
+        {
+            sprintf(query, "INSERT INTO hotel VALUES('%s','%s','%s','%s','%s','%s')",
+                    lodge_list.value(0).toLocal8Bit().data(),lodge_list.value(1).toLocal8Bit().data(),
+                    lodge_list.value(2).toLocal8Bit().data(),lodge_list.value(3).toLocal8Bit().data(),
+                    lodge_list.value(4).toLocal8Bit().data(),lodge_list.value(5).toLocal8Bit().data());
+        }
+        else
+        {
+            sprintf(query, "UPDATE hotel SET hotel_name='%s', hotel_sortation='%s',hotel_address='%s',hotel_report='%s',hotel_room='%s',hotel_number='%s' WHERE hotel_name ='%s'",
+                    lodge_list.value(0).toLocal8Bit().data(),lodge_list.value(1).toLocal8Bit().data(),
+                    lodge_list.value(2).toLocal8Bit().data(),lodge_list.value(3).toLocal8Bit().data(),
+                    lodge_list.value(4).toLocal8Bit().data(),lodge_list.value(5).toLocal8Bit().data(),
+                    l_name.toLocal8Bit().data());
+
+        }
         sql_query.exec(QString::fromLocal8Bit(query));
         if(sql_query.lastError().type() != QSqlError::NoError)
         {
             QMessageBox::information(this, "error", "데이터베이스 접근 오류");
+            std::cout<<sql_query.lastError().text().toStdString()<<std::endl;
+
         }
         else
         {

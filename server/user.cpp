@@ -1,5 +1,6 @@
 #include "user.h"
 #include "ui_user.h"
+#include "reserv.h"
 #include "beach.h"
 #include "user.h"
 #include "lodge.h"
@@ -20,6 +21,17 @@ user::~user()
 {
     delete ui;
 }
+
+
+void user::on_reserv_btn_clicked()
+{
+    this->close();
+    reserv reserv(db);
+    reserv.setModal(true);
+    reserv.exec();
+    this->show();
+}
+
 
 void user::on_beach_btn_clicked()
 {

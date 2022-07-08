@@ -1,6 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
 #include "signup.h"
+#include "mainpage.h"
 
 using namespace std;
 
@@ -48,6 +49,11 @@ void login::on_login_btn_clicked()
             else
             {
                 QMessageBox::information(this, "환 영", "로그인 성공");
+                this->close();
+                mainpage m(id, db);
+                m.setModal(true);
+                m.exec();
+                this->show();
             }
         }
 

@@ -23,6 +23,8 @@ SOURCES += \
     lodge.cpp \
     lodge_add.cpp \
     main.cpp \
+    reserv.cpp \
+    reserv_add.cpp \
     user.cpp \
     user_add.cpp
 
@@ -34,6 +36,8 @@ HEADERS += \
     guide_add.h \
     lodge.h \
     lodge_add.h \
+    reserv.h \
+    reserv_add.h \
     user.h \
     user_add.h
 
@@ -44,6 +48,8 @@ FORMS += \
     guide_add.ui \
     lodge.ui \
     lodge_add.ui \
+    reserv.ui \
+    reserv_add.ui \
     user.ui \
     user_add.ui
 

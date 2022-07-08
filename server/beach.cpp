@@ -1,5 +1,6 @@
 #include "beach.h"
 #include "ui_beach.h"
+#include "reserv.h"
 #include "beach.h"
 #include "user.h"
 #include "lodge.h"
@@ -18,6 +19,15 @@ beach::beach(Database db, QWidget *parent) :
 beach::~beach()
 {
     delete ui;
+}
+
+void beach::on_reserv_btn_clicked()
+{
+    this->close();
+    reserv reserv(db);
+    reserv.setModal(true);
+    reserv.exec();
+    this->show();
 }
 
 void beach::on_beach_btn_clicked()
@@ -60,7 +70,7 @@ void beach::on_refresh_btn_clicked()
     int i, column, line=0;
     QString temp;
     ui->beachtable->clearContents();
-    sprintf(query, "SELECT beach_name, beach_shower, beach_wash, beach_guest FROM beach");
+    sprintf(query, "SELECT beach_name, beach_room, beach_shower, beach_wash, beach_guest FROM beach");
     sql_query.exec(QString::fromLocal8Bit(query));
     column = sql_query.record().count();
     ui->beachtable->setRowCount(sql_query.size());
@@ -119,4 +129,20 @@ void beach::on_remove_btn_clicked()
 void beach::on_beachtable_itemClicked()
 {
     check=true;
+}
+
+void beach::on_edit_btn_clicked()
+{
+    int row;
+    if(check==true)
+        row = ui->beachtable->currentRow();
+    else
+        return;
+
+    QString name = ui->beachtable->takeItem(row, 0)->text();
+    check = false;
+    beach_add b(name, db);
+    b.setModal(true);
+    b.exec();
+    this->on_refresh_btn_clicked();
 }

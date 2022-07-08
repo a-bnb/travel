@@ -18,7 +18,9 @@ class beach_add : public QDialog
 
 public:
     explicit beach_add(Database dbs, QWidget *parent = nullptr);
+    explicit beach_add(QString b_name, Database dbs, QWidget *parent = nullptr);
     ~beach_add();
+    void edit_set();
 
 private slots:
     void on_update_btn_clicked();
@@ -33,6 +35,8 @@ private:
     bool check;
     QSqlQuery sql_query;
     char query[1024];
+    QString b_name;
+
 };
 
 #endif // BEACH_ADD_H

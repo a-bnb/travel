@@ -20,6 +20,8 @@ public:
     ~guide();
 
 private slots:
+    void on_reserv_btn_clicked();
+
     void on_user_btn_clicked();
 
     void on_guide_btn_clicked();
@@ -35,6 +37,8 @@ private slots:
     void on_remove_btn_clicked();
 
     void on_guidetable_itemClicked();
+
+    void on_edit_btn_clicked();
 
 private:
     Ui::guide *ui;

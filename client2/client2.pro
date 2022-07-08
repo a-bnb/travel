@@ -18,18 +18,33 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     login.cpp \
-    signup.cpp
+    mainpage.cpp \
+    reserv.cpp \
+    reserv_add.cpp \
+    signup.cpp \
+    user_info.cpp
 
 HEADERS += \
     database.h \
     login.h \
-    signup.h
+    mainpage.h \
+    reserv.h \
+    reserv_add.h \
+    signup.h \
+    user_info.h
 
 FORMS += \
     login.ui \
-    signup.ui
+    mainpage.ui \
+    reserv.ui \
+    reserv_add.ui \
+    signup.ui \
+    user_info.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    new.qrc

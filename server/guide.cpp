@@ -1,5 +1,6 @@
 #include "guide.h"
 #include "ui_guide.h"
+#include "reserv.h"
 #include "beach.h"
 #include "user.h"
 #include "lodge.h"
@@ -18,6 +19,15 @@ guide::guide(Database db, QWidget *parent) :
 guide::~guide()
 {
     delete ui;
+}
+
+void guide::on_reserv_btn_clicked()
+{
+    this->close();
+    reserv reserv(db);
+    reserv.setModal(true);
+    reserv.exec();
+    this->show();
 }
 
 void guide::on_beach_btn_clicked()
@@ -115,4 +125,20 @@ void guide::on_remove_btn_clicked()
 void guide::on_guidetable_itemClicked()
 {
     check=true;
+}
+
+void guide::on_edit_btn_clicked()
+{
+    int row;
+    if(check==true)
+        row = ui->guidetable->currentRow();
+    else
+        return;
+
+    QString id = ui->guidetable->takeItem(row, 0)->text();
+    check = false;
+    guide_add g(id, db);
+    g.setModal(true);
+    g.exec();
+    this->on_refresh_btn_clicked();
 }

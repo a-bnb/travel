@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>140</y>
+     <y>60</y>
      <width>67</width>
      <height>17</height>
     </rect>
@@ -43,7 +43,7 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>170</y>
+     <y>90</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -61,6 +61,62 @@
    <property name="text">
     <string>뒤로가기</string>
    </property>
+  </widget>
+  <widget class="QLineEdit" name="charger_text">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>170</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>140</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>담당고객명</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>220</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>근무상태</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="state_box">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>250</y>
+     <width>211</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>break</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>scheduled</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

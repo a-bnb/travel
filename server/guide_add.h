@@ -17,7 +17,10 @@ class guide_add : public QDialog
 
 public:
     explicit guide_add(Database dbs,QWidget *parent = nullptr);
+    explicit guide_add(QString id, Database dbs,QWidget *parent = nullptr);
     ~guide_add();
+    void edit_set();
+
 
 private slots:
     void on_signup_btn_clicked();
@@ -27,8 +30,10 @@ private slots:
 private:
     Ui::guide_add *ui;
     Database db;
+    QString g_id;
     QSqlQuery sql_query;
     char query[1024];
+
 };
 
 #endif // GUIDE_ADD_H

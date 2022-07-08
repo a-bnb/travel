@@ -20,7 +20,10 @@ public:
     explicit beach(Database db, QWidget *parent = nullptr);
     ~beach();
 
+
 private slots:
+    void on_reserv_btn_clicked();
+
     void on_user_btn_clicked();
 
     void on_guide_btn_clicked();
@@ -36,6 +39,8 @@ private slots:
     void on_remove_btn_clicked();
 
     void on_beachtable_itemClicked();
+
+    void on_edit_btn_clicked();
 
 private:
     Ui::beach *ui;

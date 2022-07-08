@@ -18,6 +18,8 @@ class lodge_add : public QDialog
 
 public:
     explicit lodge_add(Database dbs, QWidget *parent = nullptr);
+    explicit lodge_add(QString l_name, Database db,QWidget *parent = nullptr);
+    void edit_set();
     ~lodge_add();
 
 private slots:
@@ -32,6 +34,7 @@ private:
     Database db;
     bool check;
     QSqlQuery sql_query;
+    QString l_name;
     char query[1024];
 };
 

@@ -103,7 +103,7 @@ void user_add::on_signup_btn_clicked()
             else
             {
                 sprintf(query, "UPDATE user SET userid = '%s', userpw='%s', username='%s', usertype='%s' WHERE userid='%s'",
-                         id.toLocal8Bit().data(), pw.toLocal8Bit().data(), name.toLocal8Bit().data(), type, id.toLocal8Bit().data());
+                         id.toLocal8Bit().data(), pw.toLocal8Bit().data(), name.toLocal8Bit().data(), type, u_id.toLocal8Bit().data());
             }
             sql_query.exec(QString::fromLocal8Bit(query));
             if(sql_query.lastError().type() != QSqlError::NoError)

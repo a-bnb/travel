@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>390</x>
-     <y>120</y>
+     <y>160</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -27,7 +27,7 @@
    <property name="geometry">
     <rect>
      <x>390</x>
-     <y>90</y>
+     <y>130</y>
      <width>101</width>
      <height>17</height>
     </rect>
@@ -39,41 +39,18 @@
   <widget class="QLineEdit" name="visitor_text">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>280</y>
+     <x>390</x>
+     <y>250</y>
      <width>211</width>
      <height>31</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>170</y>
-     <width>161</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>해수욕장 길이(미터)</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="name_text">
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>40</y>
-     <width>211</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="len_text">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>200</y>
+     <y>70</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -89,7 +66,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>회원가입</string>
+    <string>정보 등록</string>
    </property>
   </widget>
   <widget class="QPushButton" name="exit_btn">
@@ -105,21 +82,11 @@
     <string>뒤로가기</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="area_text">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>120</y>
-     <width>211</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="check_btn">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>40</y>
+     <x>390</x>
+     <y>70</y>
      <width>101</width>
      <height>31</height>
     </rect>
@@ -131,8 +98,8 @@
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>250</y>
+     <x>390</x>
+     <y>220</y>
      <width>67</width>
      <height>17</height>
     </rect>
@@ -141,24 +108,11 @@
     <string>방문객 수</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>90</y>
-     <width>181</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>해수욕장 면적(제곱미터)</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>250</y>
+     <x>130</x>
+     <y>130</y>
      <width>81</width>
      <height>17</height>
     </rect>
@@ -170,8 +124,8 @@
   <widget class="QLineEdit" name="dress_text">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>280</y>
+     <x>130</x>
+     <y>160</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -180,8 +134,8 @@
   <widget class="QLineEdit" name="toilet_text">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>200</y>
+     <x>130</x>
+     <y>250</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -191,7 +145,7 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>10</y>
+     <y>40</y>
      <width>81</width>
      <height>17</height>
     </rect>
@@ -203,8 +157,8 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>170</y>
+     <x>130</x>
+     <y>220</y>
      <width>111</width>
      <height>17</height>
     </rect>

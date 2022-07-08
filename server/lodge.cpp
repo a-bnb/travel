@@ -1,5 +1,6 @@
 #include "lodge.h"
 #include "ui_lodge.h"
+#include "reserv.h"
 #include "beach.h"
 #include "user.h"
 #include "lodge.h"
@@ -20,6 +21,14 @@ lodge::~lodge()
     delete ui;
 }
 
+void lodge::on_reserv_btn_clicked()
+{
+    this->close();
+    reserv reserv(db);
+    reserv.setModal(true);
+    reserv.exec();
+    this->show();
+}
 
 void lodge::on_beach_btn_clicked()
 {
@@ -62,7 +71,7 @@ void lodge::on_refresh_btn_clicked()
     int i, column, line=0;
     QString temp;
     ui->lodgetable->clearContents();
-    sprintf(query, "SELECT hotel_name, hotel_sortation, hotel_number, hotel_address FROM hotel");
+    sprintf(query, "SELECT * FROM hotel");
     sql_query.exec(QString::fromLocal8Bit(query));
     column = sql_query.record().count();
     ui->lodgetable->setRowCount(sql_query.size());
@@ -116,4 +125,20 @@ void lodge::on_remove_btn_clicked()
 void lodge::on_lodgetable_itemClicked()
 {
     check = true;
+}
+
+void lodge::on_edit_btn_clicked()
+{
+    int row;
+    if(check==true)
+        row = ui->lodgetable->currentRow();
+    else
+        return;
+
+    QString name = ui->lodgetable->takeItem(row, 0)->text();
+    check = false;
+    lodge_add l(name, db);
+    l.setModal(true);
+    l.exec();
+    this->on_refresh_btn_clicked();
 }
