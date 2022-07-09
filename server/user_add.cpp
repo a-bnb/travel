@@ -38,6 +38,7 @@ void user_add::edit_set()
         ui->Name_text->setText(sql_query.value(1).toString());
         if(sql_query.value(2).toString() == "vip")
             ui->VIP_Check->setChecked(true);
+        ui->signup_btn->setText("회원정보 수정");
     }
     else
     {
@@ -112,10 +113,8 @@ void user_add::on_signup_btn_clicked()
             }
             else
             {
-                if(this->u_id == id)
-                    QMessageBox::information(this, "축", "변경 완료");
-                else
-                    QMessageBox::information(this, "축", "축) 가입");
+
+                QMessageBox::information(this, "축", ui->signup_btn->text()+" 성공");
 
                 this->close();
             }

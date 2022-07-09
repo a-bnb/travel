@@ -37,6 +37,7 @@ void reserv_add::edit_set()
         ui->guide_text->setText(sql_query.value(3).toString());
         ui->lodge_text->setText(sql_query.value(4).toString());
         ui->beach_text->setText(sql_query.value(5).toString());
+        ui->signup_btn->setText("예약정보 수정");
     }
     else
     {
@@ -55,9 +56,10 @@ bool reserv_add::check_included(QString table_name, QString check_col, QString c
     }
     else
     {
-        if(table_name=="guide")
+        if(table_name=="guide" && r_id=="")
         {
-            if(sql_query.value(2)!="break")
+            sql_query.next();
+            if(sql_query.value(2).toString()!="break")
                 return false;
         }
         return true;
@@ -79,8 +81,8 @@ bool reserv_add::check_list(QList<QString> reserv_list)
         }
 
     }
-    sprintf(query, "UPDATE guide SET guidestate='schduled' WHERE guidename = '%s'",
-            reserv_list.value(2).toLocal8Bit().data());
+    sprintf(query, "UPDATE guide SET guidestate='schduled', charger = (SELECT username FROM user WHERE userid='%s') WHERE guidename = '%s'",
+            reserv_list.value(1).toLocal8Bit().data(), reserv_list.value(2).toLocal8Bit().data());
     sql_query.exec(QString::fromLocal8Bit(query));
     if(sql_query.lastError().type() != QSqlError::NoError)
     {
@@ -111,7 +113,7 @@ void reserv_add::on_signup_btn_clicked()
     }
     else
     {
-        sprintf(query, "UPDATE resrvation SET  reserv_date='%s',client_id='%s', guide_name='%s', hotel_name='%s', beach_name='%s' WHERE reserv_id=%s",
+        sprintf(query, "UPDATE reservation SET  reserv_date='%s',client_id='%s', guide_name='%s', hotel_name='%s', beach_name='%s' WHERE reserv_id=%s",
                 reserv_list.value(0).toLocal8Bit().data(),reserv_list.value(1).toLocal8Bit().data(),
                 reserv_list.value(2).toLocal8Bit().data(),reserv_list.value(3).toLocal8Bit().data(),
                 reserv_list.value(4).toLocal8Bit().data(),r_id.toLocal8Bit().data());

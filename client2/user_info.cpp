@@ -1,5 +1,6 @@
 #include "user_info.h"
 #include "ui_user_info.h"
+#include "mainpage.h"
 
 user_info::user_info(QString id, Database dbs, QWidget *parent) :
     QDialog(parent),
@@ -43,13 +44,7 @@ void user_info::on_refresh_btn_clicked()
 
 void user_info::on_remove_btn_clicked()
 {
-    int row;
-    if(check==true)
-        row = ui->usertable->currentRow();
-    else
-        return;
 
-    QString id = ui->usertable->takeItem(row, 0)->text();
     sprintf(query, "INSERT INTO del_user_log select * FROM user WHERE userid='%s'", id.toLocal8Bit().data());
     sql_query.exec(QString::fromLocal8Bit(query));
     if(sql_query.lastError().type() != QSqlError::NoError)
@@ -68,15 +63,69 @@ void user_info::on_remove_btn_clicked()
     {
         QMessageBox::information(this, "error", "삭제 실패");
     }
+}
 
+bool user_info::check_id(QString id)
+{
+    if(id == "")
+    {
+        QMessageBox::information(this, "error", "공백");
+        return false;
+    }
+    sprintf(query, "SELECT * FROM user WHERE userid = '%s'", id.toLocal8Bit().data());
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.size() == 0)
+    {
+        return true;
+    }
+    else
+    {
+        QMessageBox::information(this, "error", "중복");
+        return false;
+    }
 }
 
 void user_info::on_edit_btn_clicked()
 {
+    int col;
+    col = ui->usertable->currentColumn();
+    QList<QString> col_list = {"userid", "userpw","username", "usertype"};
+    QString edit = ui->edit_text->text();
 
+    if(col==0)
+    {
+        if(!check_id(id))
+            return;
+    }
+
+    sprintf(query, "UPDATE user SET %s = '%s' WHERE userid='%s'",
+            col_list.value(col).toLocal8Bit().data(),
+            edit.toLocal8Bit().data(), id.toLocal8Bit().data());
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.lastError().type() != QSqlError::NoError)
+    {
+        QMessageBox::information(this, "error", "수정 실패");
+        std::cout<<sql_query.lastError().text().toStdString()<<std::endl;
+        return;
+    }
+    else
+    {
+        QMessageBox::information(this, "success", "수정 성공");
+        if(col==0)
+            this->id = edit;
+        this->on_refresh_btn_clicked();
+    }
 }
 
 void user_info::on_undo_btn_clicked()
 {
+    this->close();
+    mainpage m(id, db);
+    m.setModal(true);
+    m.exec();
+}
 
+void user_info::on_usertable_itemClicked(QTableWidgetItem *item)
+{
+    ui->edit_text->setText(item->text());
 }

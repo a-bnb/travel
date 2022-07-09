@@ -1,6 +1,8 @@
 #include "login.h"
 #include "ui_login.h"
 #include "signup.h"
+#include "beach_.h"
+#include "mainpage.h"
 
 using namespace std;
 
@@ -22,7 +24,7 @@ void login::on_login_btn_clicked()
 {
     QString id = ui->ID_text->text();
     QString pw = ui->PW_text->text();
-    QString type = "normal";
+
 
     if(id == "" || pw == "")
     {
@@ -31,7 +33,7 @@ void login::on_login_btn_clicked()
     else
     {
 
-        sprintf(query, "SELECT userpw, username, usertype FROM user where userid='%s'", id.toLocal8Bit().data());
+        sprintf(query, "SELECT userpw, username FROM user where userid='%s'", id.toLocal8Bit().data());
         sql_query.exec(QString::fromLocal8Bit(query));
         if(sql_query.size() == 0)
         {
@@ -41,19 +43,27 @@ void login::on_login_btn_clicked()
         else
         {
             sql_query.next();
-            if(sql_query.value(0) != pw || sql_query.value(2) != type)
+            if(sql_query.value(0) != pw)
             {
-                QMessageBox::warning(this, "error", "login error");
+                QMessageBox::warning(this, "error", "PW error");
             }
             else
             {
-                QMessageBox::information(this, "환 영", "로그인 성공");
+                this->close(); // 기존 창 닫기
+                mainpage userWindow(id); // 객체 생성
+                userWindow.setModal(true); // 정보찾기창 열기
+                userWindow.exec(); // 정보찾기창 닫으면
+                this->show();
+                 /*this->close();
+                 beach_ b(db);
+                 b.setModal(true);
+                 b.exec();
+                 this->show();*/
             }
         }
 
     }
 }
-
 
 void login::on_signup_btn_clicked()
 {

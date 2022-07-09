@@ -22,6 +22,8 @@ public:
     explicit reserv_add(bool edit, QString id, Database dbs,QWidget *parent = nullptr);
     ~reserv_add();
     void edit_set();
+    bool check_list(QList<QString> reserv_list);
+    bool check_included(QString table_name, QString check_col, QString check_str);
 
 private slots:
     void on_add_button_clicked();
@@ -31,6 +33,10 @@ private slots:
     void on_refresh_btn_clicked();
 
     void on_guide_table_itemClicked(QTableWidgetItem *item);
+
+    void on_lodge_table_itemClicked(QTableWidgetItem *item);
+
+    void on_beach_table_itemClicked(QTableWidgetItem *item);
 
 private:
     Ui::reserv_add *ui;

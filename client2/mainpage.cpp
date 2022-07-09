@@ -49,4 +49,5 @@ void mainpage::on_user_btn_clicked()
 void mainpage::on_exit_btn_clicked()
 {
     this->close();
+
 }

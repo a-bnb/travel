@@ -2,6 +2,7 @@
 #define MAINPAGE_H
 
 #include <QDialog>
+#include "beach_.h"
 #include "database.h"
 
 namespace Ui {
@@ -13,22 +14,18 @@ class mainpage : public QDialog
     Q_OBJECT
 
 public:
-    explicit mainpage(QString id, Database dbs, QWidget *parent = nullptr);
+    explicit mainpage(QString id, QWidget *parent = nullptr);
     ~mainpage();
-    void check_removed();
 
 private slots:
-    void on_reserv_btn_clicked();
+    void on_beachPush_clicked();
 
-    void on_user_btn_clicked();
-
-    void on_exit_btn_clicked();
+    void on_userPush_clicked();
 
 private:
     Ui::mainpage *ui;
-    QString id;
     Database db;
-    bool check;
+    QString id;
     QSqlQuery sql_query;
     char query[1024];
 };

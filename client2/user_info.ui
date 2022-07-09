@@ -213,7 +213,7 @@
      <normaloff>:/new/prefix1/img/refresh.png</normaloff>:/new/prefix1/img/refresh.png</iconset>
    </property>
   </widget>
-  <widget class="QTextEdit" name="edit_text">
+  <widget class="QLineEdit" name="edit_text">
    <property name="geometry">
     <rect>
      <x>100</x>

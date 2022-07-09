@@ -22,7 +22,6 @@ public:
     void edit_set();
     bool check_list(QList<QString> reserv_list);
     bool check_included(QString table_name, QString check_col, QString check_str);
-    void after_set();
 
 private slots:
     void on_signup_btn_clicked();

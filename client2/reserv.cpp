@@ -1,6 +1,7 @@
 #include "reserv.h"
 #include "ui_reserv.h"
 #include "reserv_add.h"
+#include "mainpage.h"
 
 reserv::reserv(QString id, Database dbs,QWidget *parent) :
     QDialog(parent),
@@ -61,6 +62,15 @@ void reserv::on_remove_btn_clicked()
         return;
 
     QString id = ui->reservtable->takeItem(row, 0)->text();
+    QString name = ui->reservtable->takeItem(row, 3)->text();
+    sprintf(query, "UPDATE guide SET guidestate='break', charger = 'None' WHERE guidename = '%s'", name.toLocal8Bit().data());
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.lastError().type() != QSqlError::NoError)
+    {
+        QMessageBox::information(this, "error", "데이터베이스 접근 오류");
+        std::cout<<sql_query.lastError().text().toStdString()<<std::endl;
+        return;
+    }
     sprintf(query, "DELETE FROM reservation WHERE reserv_id='%s'", id.toLocal8Bit().data());
     sql_query.exec(QString::fromLocal8Bit(query));
     if(sql_query.lastError().type() == QSqlError::NoError)
@@ -94,4 +104,13 @@ void reserv::on_edit_btn_clicked()
 void reserv::on_reservtable_itemClicked()
 {
     check = true;
+}
+
+void reserv::on_undo_btn_clicked()
+{
+
+    this->close();
+    mainpage m(id, db);
+    m.setModal(true);
+    m.exec();
 }

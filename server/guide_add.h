@@ -27,10 +27,14 @@ private slots:
 
     void on_exit_btn_clicked();
 
+    void on_check_btn_clicked();
+
 private:
     Ui::guide_add *ui;
     Database db;
+    bool check;
     QString g_id;
+    QString f_name;
     QSqlQuery sql_query;
     char query[1024];
 

@@ -299,7 +299,7 @@ color: rgb(255, 255, 255);</string>
    </column>
    <column>
     <property name="text">
-     <string>전화번호</string>
+     <string>숙소명</string>
     </property>
    </column>
    <column>

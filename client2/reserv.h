@@ -32,6 +32,8 @@ private slots:
 
     void on_reservtable_itemClicked();
 
+    void on_undo_btn_clicked();
+
 private:
     Ui::reserv *ui;
     Database db;

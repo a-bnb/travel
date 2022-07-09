@@ -11,6 +11,8 @@ login::login(Database db, QWidget *parent)
 {
     this->db = db;
     ui->setupUi(this);
+
+
 }
 
 login::~login()

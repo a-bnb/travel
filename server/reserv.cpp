@@ -83,8 +83,6 @@ void reserv::on_refresh_btn_clicked()
         {
             for(i=0; i<column; i++)
             {
-                if(sql_query.value(i) == "")
-                    sql_query.value(i) = "0";
                 ui->reservtable->setItem(line, i, new QTableWidgetItem(sql_query.value(i).toString()));
             }
             line++;
@@ -110,10 +108,20 @@ void reserv::on_remove_btn_clicked()
         return;
 
     QString id = ui->reservtable->takeItem(row, 0)->text();
+    QString name = ui->reservtable->takeItem(row, 3)->text();
+    sprintf(query, "UPDATE guide SET guidestate='break', charger = 'None' WHERE guidename = '%s'", name.toLocal8Bit().data());
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.lastError().type() != QSqlError::NoError)
+    {
+        QMessageBox::information(this, "error", "데이터베이스 접근 오류");
+        std::cout<<sql_query.lastError().text().toStdString()<<std::endl;
+        return;
+    }
     sprintf(query, "DELETE FROM reservation WHERE reserv_id='%s'", id.toLocal8Bit().data());
     sql_query.exec(QString::fromLocal8Bit(query));
     if(sql_query.lastError().type() == QSqlError::NoError)
     {
+
         QMessageBox::information(this, "message", "Delete Complete!");
         ui->reservtable->removeRow(row);
     }

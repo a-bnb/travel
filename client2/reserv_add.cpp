@@ -17,6 +17,54 @@ reserv_add::~reserv_add()
     delete ui;
 }
 
+bool reserv_add::check_included(QString table_name, QString check_col, QString check_str)
+{
+    sprintf(query, "SELECT * FROM %s WHERE %s = '%s'",
+            table_name.toLocal8Bit().data(), check_col.toLocal8Bit().data(), check_str.toLocal8Bit().data());
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.size() == 0)
+    {
+        return false;
+    }
+    else
+    {
+        if(table_name=="guide" && !check)
+        {
+            sql_query.next();
+            if(sql_query.value(2).toString()!="break")
+                return false;
+        }
+        return true;
+    }
+}
+
+bool reserv_add::check_list(QList<QString> reserv_list)
+{
+    QList<QString> table_list = {"user", "guide", "hotel", "beach"};
+    QList<QString> col_list = {"userid", "guidename", "hotel_name", "beach_name"};
+
+    int i;
+    for(i=1; i<reserv_list.length(); i++)
+    {
+        if(!check_included(table_list.value(i-1), col_list.value(i-1), reserv_list.value(i)))
+        {
+            QMessageBox::information(this, "error", table_list.value(i-1)+" error");
+            return false;
+        }
+
+    }
+    sprintf(query, "UPDATE guide SET guidestate='schduled', charger = (SELECT username FROM user WHERE userid='%s') WHERE guidename = '%s'",
+            reserv_list.value(1).toLocal8Bit().data(), reserv_list.value(2).toLocal8Bit().data());
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.lastError().type() != QSqlError::NoError)
+    {
+        QMessageBox::information(this, "error", "데이터베이스 접근 오류");
+        std::cout<<sql_query.lastError().text().toStdString()<<std::endl;
+        return false;
+    }
+    return true;
+}
+
 void reserv_add::on_add_button_clicked()
 {
     QList<QString> reserv_list;
@@ -26,10 +74,11 @@ void reserv_add::on_add_button_clicked()
     reserv_list.append(ui->lodge_text->text());
     reserv_list.append(ui->beach_text->text());
 
-
+    if(!check_list(reserv_list))
+        return;
     if(!check)
     {
-        sprintf(query, "INSERT INTO reservation(reserv_date, client_id, guide_name, hotel_name, beach_name) VALUES(%s, '%s', '%s', '%s', '%s')",
+        sprintf(query, "INSERT INTO reservation(reserv_date, client_id, guide_name, hotel_name, beach_name) VALUES('%s', '%s', '%s', '%s', '%s')",
                 reserv_list.value(0).toLocal8Bit().data(),reserv_list.value(1).toLocal8Bit().data(),
                 reserv_list.value(2).toLocal8Bit().data(),reserv_list.value(3).toLocal8Bit().data(),
                 reserv_list.value(4).toLocal8Bit().data());

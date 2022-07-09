@@ -20,6 +20,7 @@ class user_info : public QDialog
 public:
     explicit user_info(QString id,Database dbs, QWidget *parent = nullptr);
     ~user_info();
+    bool check_id(QString id);
 
 private slots:
     void on_refresh_btn_clicked();
@@ -29,6 +30,8 @@ private slots:
     void on_edit_btn_clicked();
 
     void on_undo_btn_clicked();
+
+    void on_usertable_itemClicked(QTableWidgetItem *item);
 
 private:
     Ui::user_info *ui;

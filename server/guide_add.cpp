@@ -36,6 +36,7 @@ void guide_add::edit_set()
     {
         sql_query.next();
         ui->Name_text->setText(sql_query.value(0).toString());
+        f_name = sql_query.value(0).toString();
         ui->charger_text->setText(sql_query.value(1).toString());
         ui->state_box->setCurrentText(sql_query.value(2).toString());
         ui->signup_btn->setText("정보 수정");
@@ -54,6 +55,14 @@ void guide_add::on_signup_btn_clicked()
     QString state = ui->state_box->currentText();
     if(charger == "")
         charger = "None";
+    if(f_name == name)
+        check=true;
+
+    if(!check)
+    {
+        QMessageBox::information(this, "error", "중복확인");
+        return;
+    }
     if(g_id=="")
     {
         sprintf(query, "INSERT INTO guide(guidename, guidestate, charger) VALUES('%s', '%s', '%s')",
@@ -80,4 +89,25 @@ void guide_add::on_signup_btn_clicked()
 void guide_add::on_exit_btn_clicked()
 {
     this->close();
+}
+
+void guide_add::on_check_btn_clicked()
+{
+    QString name = ui->Name_text->text();
+    if(name == "")
+    {
+        QMessageBox::information(this, "error", "공백");
+        return;
+    }
+    sprintf(query, "SELECT * FROM guide WHERE guidename = '%s'", name.toLocal8Bit().data());
+    sql_query.exec(QString::fromLocal8Bit(query));
+    if(sql_query.size() == 0)
+    {
+        check = true;
+        QMessageBox::information(this, "OK", "통과");
+    }
+    else
+    {
+        QMessageBox::information(this, "error", "중복");
+    }
 }
