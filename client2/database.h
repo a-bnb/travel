@@ -19,8 +19,8 @@ public:
     void database_init()
     {
         db = QSqlDatabase::addDatabase("QMYSQL");
-        db.setHostName("10.10.20.44");      // IP 또는 DNS Host name
-        db.setDatabaseName("travel"); // DB명
+        db.setHostName("10.10.20.233");      // IP 또는 DNS Host name
+        db.setDatabaseName("rental"); // DB명
         db.setUserName("admin");     // 계정 명
         db.setPassword("1234");     // 계정 Password
 
